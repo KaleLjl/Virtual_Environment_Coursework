@@ -1,5 +1,5 @@
 # This .gitignore file should be placed at the root of your Unity project directory
-
+/笔记
 # Unity generated
 [Ll]ibrary/
 [Tt]emp/
