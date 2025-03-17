@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class AvatarSys : MonoBehaviour
 {
-
     public static AvatarSys _instance;
 
     [Header("Prefabs")]
     [SerializeField] private GameObject modelPrefab;   // Resource model containing all available parts (with a "Parts" folder)
-    [SerializeField] private GameObject targetPrefab;  // Your visible avatar prefab (e.g., Character_22)
+    [SerializeField] private GameObject targetPrefab;    // Your visible avatar prefab (e.g., Character_22)
 
     [Header("XR Setup")]
     public Transform xrOrigin; // Reference to your XR Origin (the root GameObject of your VR rig)
@@ -20,8 +19,15 @@ public class AvatarSys : MonoBehaviour
     private Dictionary<string, Dictionary<string, SkinnedMeshRenderer>> data = new Dictionary<string, Dictionary<string, SkinnedMeshRenderer>>();
     private Transform[] hips;
     private Dictionary<string, SkinnedMeshRenderer> smr = new Dictionary<string, SkinnedMeshRenderer>();
+
     // Default parts selection: { category, variant }
-    private string[,] avatarStr = new string[,] { { "Hair", "1" }, { "Top", "1" }, { "Bottom", "1" }, { "Shoes", "1" }, { "Face", "A1" } };
+    private string[,] avatarStr = new string[,] {
+        { "Hair", "1" },
+        { "Top", "1" },
+        { "Bottom", "1" },
+        { "Shoes", "1" },
+        { "Face", "A1" }
+    };
 
     // Public accessor for the instantiated avatar
     public GameObject CurrentAvatar => target;
@@ -39,51 +45,44 @@ public class AvatarSys : MonoBehaviour
         InitAvatar();
     }
 
-void InstantiateAvatar()
-{
-    if (modelPrefab == null || targetPrefab == null || xrOrigin == null)
+    // Instantiate the source (hidden) and target (visible) avatars as children of the XR Origin.
+    void InstantiateAvatar()
     {
-        Debug.LogError("Please assign the modelPrefab, targetPrefab, and xrOrigin!");
-        return;
-    }
+        if (modelPrefab == null || targetPrefab == null || xrOrigin == null)
+        {
+            Debug.LogError("Please assign the modelPrefab, targetPrefab, and xrOrigin!");
+            return;
+        }
 
-    // Instantiate the source model (hidden repository for parts) as a child of XR Origin.
-    GameObject sourceGO = Instantiate(modelPrefab, xrOrigin.position, Quaternion.identity, xrOrigin);
-    sourceTrans = sourceGO.transform;
-    sourceGO.SetActive(false);
+        // Instantiate the source model (hidden repository for parts) as a child of XR Origin.
+        GameObject sourceGO = Instantiate(modelPrefab, xrOrigin.position, Quaternion.identity, xrOrigin);
+        sourceTrans = sourceGO.transform;
+        sourceGO.SetActive(false);
 
-    // Instantiate the target (visible avatar) as a child of XR Origin.
-    target = Instantiate(targetPrefab, xrOrigin.position, Quaternion.identity, xrOrigin);
-    hips = target.GetComponentsInChildren<Transform>();
+        // Instantiate the target (visible avatar) as a child of XR Origin.
+        target = Instantiate(targetPrefab, xrOrigin.position, Quaternion.identity, xrOrigin);
+        hips = target.GetComponentsInChildren<Transform>();
 
-    // Reset local position/rotation
-    target.transform.localPosition = Vector3.zero;
-    target.transform.localRotation = Quaternion.identity;
+        // Reset local position/rotation
+        target.transform.localPosition = Vector3.zero;
+        target.transform.localRotation = Quaternion.identity;
 
-    // Add an upward offset to keep the avatar fully above ground
-    //float desiredOffset = 1.0f; // Adjust this value until the feet are at the floor level
-    //target.transform.localPosition += new Vector3(0, desiredOffset, 0);
+        // Add an upward spawn offset (adjust this value as needed so that the avatar sits properly on the ground)
+        float spawnYOffset = 0.6f;
+        target.transform.localPosition += new Vector3(0, spawnYOffset, 0);
 
-    // *** Adjust spawn offset if the prefab's pivot is not at the feet ***
-    float spawnYOffset = 1.0f; // Adjust this value as needed.
-    target.transform.localPosition += new Vector3(0, spawnYOffset, 0);
+        // Attach and configure the SyncCharacterToXR script.
+        SyncCharacterToXR syncScript = target.AddComponent<SyncCharacterToXR>();
+        syncScript.xrOrigin = xrOrigin;
+        syncScript.character = target.transform;
 
-    // Attach and configure the SyncCharacterToXR script.
-    SyncCharacterToXR syncScript = target.AddComponent<SyncCharacterToXR>();
-    syncScript.xrOrigin = xrOrigin;
-    syncScript.character = target.transform;
-
-    // Attach and configure the AlignVRCameraToHead script.
-    //AlignVRCameraToHead alignScript = target.AddComponent<AlignVRCameraToHead>();
-
-    //alignScript.vrCamera = xrOrigin.Find("Camera Offset/Main Camera");
-    // Since your Character_22 has a "Bones" folder, we assume the head bone is inside it and named "Head".
-    //alignScript.characterHead = target.transform.Find(
-    //    "Bone/QuickRigCharacter2_Reference/QuickRigCharacter2_Hips/QuickRigCharacter2_Spine/QuickRigCharacter2_Spine1/QuickRigCharacter2_Spine2/QuickRigCharacter2_Neck/QuickRigCharacter2_Head"
-    //);
+        // Optionally attach the AlignVRCameraToHead script if needed.
+        // AlignVRCameraToHead alignScript = target.AddComponent<AlignVRCameraToHead>();
+        // alignScript.vrCamera = xrOrigin.Find("Camera Offset/Main Camera");
+        // alignScript.characterHead = target.transform.Find("Bone/QuickRigCharacter2_Reference/QuickRigCharacter2_Hips/QuickRigCharacter2_Spine/QuickRigCharacter2_Spine1/QuickRigCharacter2_Spine2/QuickRigCharacter2_Neck/QuickRigCharacter2_Head");
 
         Debug.Log("Avatar instantiated with adjusted spawn offset.");
-}
+    }
 
     // Collects part data from sourceTrans/Parts and creates corresponding empty target parts.
     void SaveData(Transform sourceTrans, Dictionary<string, Dictionary<string, SkinnedMeshRenderer>> data, GameObject target, Dictionary<string, SkinnedMeshRenderer> smr)
@@ -203,7 +202,8 @@ void InstantiateAvatar()
         }
     }
 
-    // Public method to change a part on the fly (can be hooked up to UI buttons).
+    // Public method to change a part on the fly.
+    // This method is called by our UI (or other game logic) to change a part variant.
     public void OnChangePart(string part, string num)
     {
         ChangeMesh(part, num, data, hips, smr, avatarStr);
@@ -227,5 +227,18 @@ void InstantiateAvatar()
         InstantiateAvatar();
         SaveData(sourceTrans, data, target, smr);
         InitAvatar();
+    }
+
+    // --- Public Method to Expose Available Variants for a Category ---
+    // This method allows other scripts (like a dynamic UI manager) to query the available parts for a given category.
+    public bool GetPartsForCategory(string category, out Dictionary<string, SkinnedMeshRenderer> parts)
+    {
+        if (data.ContainsKey(category))
+        {
+            parts = data[category];
+            return true;
+        }
+        parts = null;
+        return false;
     }
 }
