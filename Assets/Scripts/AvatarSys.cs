@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+// This script is an old version that has been replaced by AvatarManager and along with the subsequent functionality
 public class AvatarSys : MonoBehaviour {
 
     public static AvatarSys _instance;
