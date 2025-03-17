@@ -9,8 +9,8 @@ public class AlignVRCameraToHead : MonoBehaviour
     {
         if (vrCamera != null && characterHead != null)
         {
-            // Match VR camera position to the character's head
-            vrCamera.position = characterHead.position;
+            // Add an offset (e.g., 0.2f) so the camera is slightly above the head bone.
+            vrCamera.position = characterHead.position + new Vector3(0, 1.0f, 0);
         }
     }
 }

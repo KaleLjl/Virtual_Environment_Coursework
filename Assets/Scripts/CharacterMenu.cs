@@ -2,14 +2,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class CharacterMenu : MonoBehaviour
+public class CharacterSelectionMenu : MonoBehaviour
 {
-    public GameObject buttonPrefab; // Assign the CharacterButton prefab
-    public Transform buttonContainer; // Assign the Content panel in Scroll View
-    public Transform spawnPoint; // Where the character will appear
-    public List<GameObject> characterPrefabs = new List<GameObject>(); // Holds all character prefabs
-
-    private GameObject currentCharacter; // Stores the currently spawned character
+    public GameObject buttonPrefab;
+    public Transform buttonContainer;
+    public List<GameObject> characterPrefabs = new List<GameObject>();
 
     void Start()
     {
@@ -19,29 +16,43 @@ public class CharacterMenu : MonoBehaviour
 
     void LoadCharactersFromFolder()
     {
-        GameObject[] loadedPrefabs = Resources.LoadAll<GameObject>("Characters"); // Folder: Assets/Resources/Characters
+        GameObject[] loadedPrefabs = Resources.LoadAll<GameObject>("Characters");
         characterPrefabs.AddRange(loadedPrefabs);
+
+        if (characterPrefabs.Count == 0)
+        {
+            Debug.LogError("No character prefabs found in Resources/Characters!");
+        }
     }
 
     void GenerateCharacterButtons()
     {
         foreach (GameObject characterPrefab in characterPrefabs)
         {
-            // Create a new button
             GameObject newButton = Instantiate(buttonPrefab, buttonContainer);
-            newButton.GetComponentInChildren<Text>().text = characterPrefab.name;
+
+            Text buttonText = newButton.GetComponentInChildren<Text>();
+            if (buttonText != null)
+            {
+                buttonText.text = characterPrefab.name;
+            }
+            else
+            {
+                Debug.LogError($"Button prefab missing a Text component: {newButton.name}");
+            }
+
             newButton.GetComponent<Button>().onClick.AddListener(() => SelectCharacter(characterPrefab));
         }
     }
 
     public void SelectCharacter(GameObject characterPrefab)
     {
-        if (currentCharacter != null)
+        if (AvatarSys._instance == null)
         {
-            Destroy(currentCharacter); // Remove the previous character
+            Debug.LogError("AvatarSys instance is not available!");
+            return;
         }
 
-        // Instantiate the selected character at the spawn point
-        currentCharacter = Instantiate(characterPrefab, spawnPoint.position, spawnPoint.rotation);
+        AvatarSys._instance.ChangeAvatar(characterPrefab);
     }
 }
