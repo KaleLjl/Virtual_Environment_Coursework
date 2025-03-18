@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
     "m_SettingKeys": [
         "VR Device Disabled",
@@ -7,4 +8,15 @@
         "False",
         "False"
     ]
+=======
+{
+    "m_SettingKeys": [
+        "VR Device Disabled",
+        "VR Device User Alert"
+    ],
+    "m_SettingValues": [
+        "False",
+        "False"
+    ]
+>>>>>>> main
 }
