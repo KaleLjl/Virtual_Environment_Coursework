@@ -31,6 +31,8 @@ public class AvatarSys : MonoBehaviour
 
     // Public accessor for the instantiated avatar
     public GameObject CurrentAvatar => target;
+    // New public property to store the Animator on the instantiated avatar
+    public Animator CurrentAnimator { get; private set; }
 
     void Awake()
     {
@@ -68,8 +70,15 @@ public class AvatarSys : MonoBehaviour
         target.transform.localRotation = Quaternion.identity;
 
         // Add an upward spawn offset (adjust this value as needed so that the avatar sits properly on the ground)
-        float spawnYOffset = 0.6f;
+        float spawnYOffset = 0f;
         target.transform.localPosition += new Vector3(0, spawnYOffset, 0);
+
+        // Capture the Animator component from the instantiated avatar.
+        CurrentAnimator = target.GetComponent<Animator>();
+        if (CurrentAnimator == null)
+        {
+            Debug.LogError("No Animator component found on the target avatar prefab!");
+        }
 
         // Attach and configure the SyncCharacterToXR script.
         SyncCharacterToXR syncScript = target.AddComponent<SyncCharacterToXR>();
