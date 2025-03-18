@@ -861,8 +861,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   category: Hair
-  buttonContainer: {fileID: 0}
-  buttonPrefab: {fileID: 0}
+  buttonContainer: {fileID: 636131171}
+  buttonPrefab: {fileID: 7423810773530745293, guid: 15e3abd22d1644af0b44eeb23166f4f1, type: 3}
 --- !u!1 &567265512
 GameObject:
   m_ObjectHideFlags: 0
@@ -2268,8 +2268,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   category: Top
-  buttonContainer: {fileID: 0}
-  buttonPrefab: {fileID: 0}
+  buttonContainer: {fileID: 1480604632}
+  buttonPrefab: {fileID: 7423810773530745293, guid: 15e3abd22d1644af0b44eeb23166f4f1, type: 3}
 --- !u!1 &1267491183
 GameObject:
   m_ObjectHideFlags: 0
@@ -2355,8 +2355,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   category: Shoes
-  buttonContainer: {fileID: 0}
-  buttonPrefab: {fileID: 0}
+  buttonContainer: {fileID: 987001703}
+  buttonPrefab: {fileID: 7423810773530745293, guid: 15e3abd22d1644af0b44eeb23166f4f1, type: 3}
 --- !u!1 &1307991613
 GameObject:
   m_ObjectHideFlags: 0
@@ -3218,8 +3218,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   category: Bottom
-  buttonContainer: {fileID: 0}
-  buttonPrefab: {fileID: 0}
+  buttonContainer: {fileID: 1307991614}
+  buttonPrefab: {fileID: 7423810773530745293, guid: 15e3abd22d1644af0b44eeb23166f4f1, type: 3}
 --- !u!1 &1592333554
 GameObject:
   m_ObjectHideFlags: 0
@@ -12898,9 +12898,9 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 692812548}
+  - {fileID: 1688105120}
   - {fileID: 59302797}
   - {fileID: 364817131}
-  - {fileID: 1688105120}
   - {fileID: 1358821102}
   - {fileID: 1763706211}
   - {fileID: 1514367092}
