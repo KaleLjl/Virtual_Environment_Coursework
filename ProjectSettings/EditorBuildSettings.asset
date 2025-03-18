@@ -6,9 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/clothing_shop.unity
+    guid: 77d998b02539e3740a51b3ba552ff0d0
   m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 9a11f53bb21924a42823263ea21d9c21, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 64371e19484a8493999c1700078661db, type: 2}
   m_UseUCBPForAssetBundles: 0

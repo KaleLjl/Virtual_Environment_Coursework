@@ -1,0 +1,19 @@
+# ninja log v5
+1	597	1742311369108990729	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	979cf06b3b24fcb0
+2	542	1742311369055354255	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	5e6045bc0f25277
+3	517	1742311369030023485	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	d6341c3a32e62b6c
+2	569	1742311369081071231	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	9d9df92f2c028843
+3	511	1742311369022923132	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	442b95167c4a2acc
+597	694	1742311369201879763	/Users/julianmarchington/Documents/GitHub/Virtual_Environment_Coursework/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/Debug/4f551g3x/obj/arm64-v8a/libgame.so	9892fe4080ae0014
+3	496	1742311369006586947	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	1265c4a27e136fb5
+2	502	1742311369013988338	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	53714085e33baa31
+1	492	1742311369003019813	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	d526a58eb6521f25
+2	5719	1742311787165670161	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	1265c4a27e136fb5
+2	5720	1742311787169324503	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	53714085e33baa31
+1	5727	1742311787177106391	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	d526a58eb6521f25
+3	5740	1742311787190022691	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	d6341c3a32e62b6c
+1	5767	1742311787217674524	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	5e6045bc0f25277
+4	5779	1742311787229249586	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	442b95167c4a2acc
+2	5798	1742311787248185831	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	9d9df92f2c028843
+1	5814	1742311787263512317	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	979cf06b3b24fcb0
+5814	9272	1742311790715600403	/Users/julianmarchington/Documents/GitHub/Virtual_Environment_Coursework/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/Debug/4f551g3x/obj/arm64-v8a/libgame.so	9892fe4080ae0014
