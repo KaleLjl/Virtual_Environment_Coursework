@@ -27185,8 +27185,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6433e55659edf442b96c98e9be61f8bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modelPrefab: {fileID: 8401255122595918626, guid: d462a839c992749ac902dcc492f0ba55, type: 3}
-  targetPrefab: {fileID: 2602043654154992925, guid: c0b5d3d265247460293fa980d7359c38, type: 3}
+  modelPrefab: {fileID: 8401255122595918626, guid: 77fcf1b450a374971a1cddd21a7defb2, type: 3}
+  targetPrefab: {fileID: 2602043654154992925, guid: 7b4c16d1e12cc46a39a57390c9a306f4, type: 3}
   xrOrigin: {fileID: 1170634059}
 --- !u!4 &2059941473
 Transform:
