@@ -44,13 +44,31 @@ public class AvatarCustomizationUI : MonoBehaviour
                     Debug.LogWarning("Button prefab is missing a Text component.");
                 }
 
-                // Extract variant number (if needed for your OnChangePart call)
+                // Extract the variant number (assuming key format "Category_Variant")
                 string variantNumber = kvp.Key.Substring(category.Length + 1);
                 string part = category;
                 string variant = variantNumber;
+
+                // Capture the current values for the lambda.
+                string capturedPart = part;
+                string capturedVariant = variant;
+
                 newButton.onClick.AddListener(() =>
                 {
-                    AvatarSys._instance.OnChangePart(part, variant);
+                    // 1. Update the local avatar.
+                    AvatarSys._instance.OnChangePart(capturedPart, capturedVariant);
+
+                    // 2. Get the network sync component from the current avatar.
+                    AvatarNetworkSync sync = AvatarSys._instance.CurrentAvatar.GetComponent<AvatarNetworkSync>();
+                    if (sync != null)
+                    {
+                        // Broadcast the change over the network.
+                        sync.SendAvatarChange(capturedPart, capturedVariant);
+                    }
+                    else
+                    {
+                        Debug.LogWarning("AvatarNetworkSync component is missing on the current avatar!");
+                    }
                 });
             }
         }
